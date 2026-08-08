@@ -1,0 +1,8 @@
+flowchart LR
+  A[Authorize / Scope] --> B[ASM]
+  B --> C[Hypotheses]
+  C --> D[Safe validation]
+  D --> E[Impact narrative]
+  E --> F[Report]
+  F --> G[Retest / Learn]
+  G --> B
