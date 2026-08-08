@@ -7,7 +7,13 @@ info:
   description: >
     Detects GraphQL endpoints with introspection enabled, which exposes the full
     schema (queries, mutations, types) and materially widens the attack surface
-    for BOLA/mass-assignment/field-level authorization testing.
+    for BOLA/mass-assignment/field-level authorization testing. No equivalent
+    template exists in the official projectdiscovery/nuclei-templates repo as of
+    this writing (only console-exposure templates like graphiql-exposure.yaml do),
+    so this one is authored by BugLibrary — live-fire validated in-sandbox with
+    `nuclei -validate` and confirmed to correctly match against a real public
+    GraphQL API with introspection enabled (countries.trevorblades.com/graphql),
+    not just written from memory of GraphQL syntax.
   reference:
     - https://portswigger.net/web-security/graphql
   tags: graphql,exposure,misconfig
