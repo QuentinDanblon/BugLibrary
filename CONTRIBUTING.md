@@ -1,116 +1,84 @@
-# Contributing to BugLibrary / Contribuer à BugLibrary
+# Contributing to BugLibrary
 
-Thank you for helping build the elite bug-hunting reference library.  
-Merci de contribuer à la bible du bug hunting.
+**FR ci-dessous / French version below.**
 
----
+## EN — How to Contribute
 
-## English
+BugLibrary is a living document. It stays valuable only if it keeps absorbing new techniques, retiring dead ones, and getting more precise over time.
 
-### What we accept
+### What we want
 
-| Type | Welcome? | Notes |
-|------|----------|--------|
-| Methodology, checklists, report templates | ✅ | High priority |
-| Modern techniques (2024–2026), with legal framing | ✅ | Authorized testing only |
-| Case studies (anonymized, educational) | ✅ | No live 0-days / private disclosures |
-| AI agent prompts & workflows | ✅ | OPSEC-aware |
-| Runnable exploit PoCs / malware / weaponized payloads | ❌ | Hard reject |
-| Out-of-scope attack guides | ❌ | Hard reject |
-| Credential dumps / PII | ❌ | Hard reject |
+- **New, actionable techniques** — 2024-2026 relevant, with a working PoC/example, not theory copy-pasted from a 2015 blog post.
+- **Checklist improvements** — a missing test case, a sharper hypothesis, a faster triage heuristic.
+- **Corrections** — outdated payloads, dead tools, WAF bypasses that no longer work.
+- **Case studies** — anonymized/generalized write-ups of real findings (scrub target identity unless it's already public disclosure).
+- **Templates** — better report structures, better recon note formats.
 
-### Quality bar
+### What we reject
 
-Content must be:
+- Anything violating `CODE_OF_CONDUCT.md` (illegal use, undisclosed exploits, malware).
+- Unverified claims ("I heard this works") without a reproducible example.
+- Duplicate content — check existing docs first.
+- Pure theory with zero actionability.
 
-1. **Actionable** — a hunter can apply it the same day
-2. **Accurate** — techniques validated or clearly marked as experimental
-3. **Scoped** — always assume authorized programs (HackerOne, Bugcrowd, Intigriti, VDP, pentest RoE)
-4. **Structured** — headings, tables, checklists, pro tips
-5. **Bilingual when user-facing** — French + English for major prose (or dual sections)
-6. **Safe** — describe *classes* of issues and testing approaches; do not ship attack engines
+### How to submit
 
-### How to contribute
+1. Fork the repo.
+2. Create a branch: `git checkout -b add/<short-topic>` or `fix/<short-topic>`.
+3. Add/edit content under `docs/<relevant-section>/`. Follow the existing Markdown style (tables, checklists, mermaid diagrams where useful, pro-tips in blockquotes).
+4. If adding a technique, include: **context**, **how to test**, **how to confirm impact**, **remediation note**, **references**.
+5. Run a spell/link check if you can (`markdown-link-check` recommended).
+6. Open a Pull Request with a clear description of what changed and why.
+7. One reviewer approval minimum before merge.
 
-1. Fork the repository
-2. Create a branch: `docs/<section>-<short-topic>`
-3. Add or improve Markdown under the correct `docs/NN-*/` folder
-4. Update section `README.md` indexes if you add files
-5. Run a self-review against the checklist below
-6. Open a Pull Request with a clear summary (what / why / risk)
+### Style guide (quick reference)
 
-### Self-review checklist
-
-- [ ] No weaponized payloads or live malware
-- [ ] Explicit “authorized testing only” where offensive techniques appear
-- [ ] Links to related sections (Legal, Reporting, OPSEC) when relevant
-- [ ] Tables / checklists used instead of walls of text
-- [ ] Pro tips labeled and concrete
-- [ ] French + English for major new guides (or note if EN-only temporary)
-- [ ] No secrets, tokens, real target data, or private program details
-- [ ] Living Document note updated if process changed (`docs/14-...`)
-
-### Style guide
-
-- Prefer short paragraphs and bullet lists
-- Use fenced code only for **safe** examples (headers, query shapes, report structure)
-- Mark severity language carefully (CVSS as guidance, not gospel)
-- Name tools generically when possible; link official docs
-- Date-stamp major technique notes when tied to a year (`<!-- updated: 2026-03 -->`)
+- Headers: `##` for major subsection, `###` for detail blocks.
+- Use tables for comparisons (severity, tool matrices, payload lists).
+- Use fenced code blocks with language hints (` ```http `, ` ```bash `, ` ```graphql `, ...).
+- Pro tips: `> 💡 **Pro tip:** ...`
+- Warnings: `> ⚠️ **Attention scope/legal:** ...`
+- Keep sentences dense — no filler. Every line should teach something or point somewhere.
 
 ### Commit messages
 
-```
-docs(web): add IDOR prioritization matrix
-docs(ai): expand multi-agent recon orchestration
-fix(templates): clarify impact section in bug-report template
-chore: update living-document maintenance cadence
-```
-
-### Reporting security issues in *this* repo
-
-If you find a vulnerability in BugLibrary infrastructure or accidental secret exposure, contact the maintainer privately — do not open a public issue with secrets.
+Conventional style: `docs(section): short description`, e.g. `docs(web): add HTTP request smuggling desync chain example`.
 
 ---
 
-## Français
+## FR — Comment contribuer
 
-### Ce que nous acceptons
+BugLibrary est un document vivant. Il ne garde sa valeur que s'il continue d'absorber de nouvelles techniques, d'en retirer les obsolètes, et de gagner en précision.
 
-| Type | Accepté ? | Notes |
-|------|-----------|--------|
-| Méthodologie, checklists, templates de rapports | ✅ | Priorité haute |
-| Techniques modernes (2024–2026), cadre légal | ✅ | Tests autorisés uniquement |
-| Études de cas (anonymisées, pédagogiques) | ✅ | Pas de 0-day privés |
-| Prompts & workflows agents IA | ✅ | OPSEC conscient |
-| PoC d'exploits exécutables / malware | ❌ | Rejet |
-| Guides d'attaque hors scope | ❌ | Rejet |
-| Dumps de credentials / PII | ❌ | Rejet |
+### Ce qu'on veut
 
-### Barre de qualité
+- **Techniques actionnables et récentes** (2024-2026), avec un exemple/PoC fonctionnel — pas de la théorie recopiée d'un article de 2015.
+- **Améliorations de checklists** — un cas de test manquant, une hypothèse plus fine, une heuristique de triage plus rapide.
+- **Corrections** — payloads obsolètes, outils morts, bypass WAF qui ne fonctionnent plus.
+- **Études de cas** — retours d'expérience anonymisés/généralisés sur des découvertes réelles (masquer l'identité de la cible sauf si déjà en disclosure publique).
+- **Templates** — meilleures structures de rapport, meilleurs formats de notes de recon.
 
-1. **Actionnable** — applicable le jour même  
-2. **Précis** — validé ou marqué expérimental  
-3. **Scopé** — programmes autorisés uniquement  
-4. **Structuré** — titres, tableaux, checklists, pro tips  
-5. **Bilingue** pour le contenu majeur FR + EN  
-6. **Sûr** — classes de bugs et approches de test, pas d'armes clés en main  
+### Ce qu'on refuse
 
-### Processus
+- Tout ce qui viole `CODE_OF_CONDUCT.md` (usage illégal, exploits non divulgués, malware).
+- Affirmations non vérifiées ("j'ai entendu dire que ça marche") sans exemple reproductible.
+- Contenu dupliqué — vérifier l'existant avant de proposer.
+- Théorie pure sans aucune actionnabilité.
 
-1. Fork  
-2. Branche `docs/<section>-<sujet>`  
-3. Markdown dans le bon dossier `docs/NN-*/`  
-4. Mettre à jour l'index de section  
-5. Auto-revue (checklist ci-dessus)  
-6. Pull Request claire  
+### Comment soumettre
+
+1. Forker le dépôt.
+2. Créer une branche : `git checkout -b add/<sujet-court>` ou `fix/<sujet-court>`.
+3. Ajouter/modifier le contenu sous `docs/<section-concernée>/`. Respecter le style Markdown existant (tables, checklists, diagrammes mermaid si utile, pro-tips en citation).
+4. Pour une nouvelle technique, inclure : **contexte**, **comment tester**, **comment confirmer l'impact**, **remédiation**, **références**.
+5. Vérifier l'orthographe et les liens si possible.
+6. Ouvrir une Pull Request avec une description claire du changement et de sa raison.
+7. Une approbation minimum avant fusion.
+
+### Guide de style (référence rapide)
+
+Voir la section anglaise ci-dessus — les conventions sont identiques (tables, blocs de code avec langage, pro-tips en blockquote, avertissements légaux explicites, phrases denses sans remplissage).
 
 ### Messages de commit
 
-Préfixer par `docs(scope):`, `fix(templates):`, `chore:`.
-
----
-
-## Code of Conduct
-
-By participating, you agree to our [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md).
+Style conventionnel : `docs(section): description courte`, ex. `docs(web): ajout chaîne de desync HTTP request smuggling`.

@@ -1,94 +1,61 @@
-# Code of Conduct / Code de Conduite
+# Code de Conduite / Code of Conduct
 
-## English
-
-### Our Pledge
-
-We as members, contributors, and leaders of **BugLibrary** pledge to make participation in our community a harassment-free experience for everyone, regardless of age, body size, visible or invisible disability, ethnicity, sex characteristics, gender identity and expression, level of experience, education, socio-economic status, nationality, personal appearance, race, caste, color, religion, or sexual identity and orientation.
-
-We pledge to act and interact in ways that contribute to an open, welcoming, diverse, inclusive, and healthy community.
-
-### Our Standards
-
-**Examples of behavior that contributes to a positive environment:**
-
-- Demonstrating empathy and kindness toward other people
-- Being respectful of differing opinions, viewpoints, and experiences
-- Giving and gracefully accepting constructive feedback
-- Accepting responsibility and apologizing to those affected by our mistakes
-- Focusing on what is best for the overall community
-- Discussing **authorized**, legal security research only
-- Protecting program scopes, private disclosure, and responsible reporting norms
-
-**Examples of unacceptable behavior:**
-
-- Sharing weaponized malware, live exploit kits, or C2 infrastructure
-- Encouraging attacks outside of authorized scope / bug bounty programs
-- Publishing credentials, personal data, or non-public vulnerability details without permission
-- Trolling, insulting or derogatory comments, and personal or political attacks
-- Public or private harassment
-- Publishing others' private information without explicit permission
-- Other conduct which could reasonably be considered inappropriate in a professional setting
-
-### Security Research Ethics
-
-This project documents **defensive and authorized offensive research methodology** for bug bounty and legitimate security testing. Contributors must:
-
-1. Never encourage illegal activity
-2. Always emphasize scope, rules of engagement, and responsible disclosure
-3. Prefer educational technique descriptions over ready-to-run attack payloads
-4. Respect platform ToS, local law, and program policies
-
-### Enforcement
-
-Instances of abusive, harassing, or otherwise unacceptable behavior may be reported to the repository maintainers via GitHub issues (mark as private if sensitive) or by contacting the repository owner.
-
-Maintainers will review and respond in a way they deem appropriate and fair. Maintainers who do not follow or enforce this Code of Conduct in good faith may face temporary or permanent repercussions as determined by other maintainers.
-
-### Attribution
-
-Adapted from the [Contributor Covenant](https://www.contributor-covenant.org), version 2.1.
-
----
-
-## Français
+## FR — Français
 
 ### Notre engagement
 
-En tant que membres, contributeurs et leaders de **BugLibrary**, nous nous engageons à faire de la participation à notre communauté une expérience sans harcèlement pour tous, indépendamment de l'âge, de la taille corporelle, d'un handicap visible ou invisible, de l'origine ethnique, des caractéristiques sexuelles, de l'identité et de l'expression de genre, du niveau d'expérience, de l'éducation, du statut socio-économique, de la nationalité, de l'apparence personnelle, de la race, de la caste, de la couleur, de la religion ou de l'orientation sexuelle.
+BugLibrary est une ressource dédiée à la recherche de vulnérabilités **légale, éthique et responsable**. En contribuant ou en utilisant ce dépôt, vous acceptez les principes suivants.
 
-### Nos standards
+### Règles fondamentales
 
-**Comportements attendus :**
+1. **Scope only.** Aucune technique documentée ici ne doit être appliquée hors du scope autorisé d'un programme de bug bounty, d'un pentest sous contrat, ou d'un environnement de lab personnel (CTF, labs type PortSwigger/HackTheBox/PentesterLab).
+2. **Disclosure responsable.** Toute vulnérabilité découverte doit être rapportée via le canal officiel du programme (bug bounty, `security.txt`, VDP) — jamais divulguée publiquement sans accord préalable (coordinated disclosure).
+3. **Pas d'exploitation destructive.** Aucune preuve de concept ne doit causer de dommage, exfiltrer des données réelles au-delà du strict nécessaire à la preuve, ou perturber un service de production.
+4. **Respect de la vie privée.** Les données personnelles rencontrées durant une recherche (PII, secrets, credentials) sont traitées avec la plus grande discrétion, jamais stockées, jamais partagées.
+5. **Pas de contenu malveillant.** Ce dépôt ne contient ni malware fonctionnel prêt à l'emploi, ni exploits 0-day non divulgués, ni outils dont l'unique usage est illégal.
+6. **Attribution et honnêteté.** Les techniques, outils et recherches tiers sont crédités. Le plagiat n'est pas toléré.
 
-- Empathie et bienveillance
-- Respect des opinions et expériences différentes
-- Feedback constructif
-- Responsabilité face aux erreurs
-- Discussion **uniquement** de la recherche de sécurité autorisée et légale
-- Respect des scopes, de la divulgation responsable et des normes de reporting
+### Comportement attendu de la communauté
 
-**Comportements inacceptables :**
+- Communication professionnelle, constructive, sans harcèlement ni discrimination.
+- Critique technique bienvenue ; attaques personnelles interdites.
+- Toute contribution doit apporter une valeur pratique et vérifiable.
 
-- Partage de malware weaponisé, kits d'exploit ou infrastructure C2
-- Encourager des attaques hors scope / hors programmes bug bounty
-- Publier des credentials, données personnelles ou détails de vulnérabilités non publiques sans autorisation
-- Harcèlement, insultes, doxxing
-- Toute conduite inappropriée en contexte professionnel
+### Signalement
 
-### Éthique de la recherche en sécurité
+Tout comportement contraire à ce code peut être signalé via une issue GitHub marquée `conduct` ou par contact direct avec les mainteneurs du dépôt.
 
-Ce projet documente une méthodologie **défensive et offensive autorisée** pour le bug bounty et les tests de sécurité légitimes. Les contributeurs doivent :
+### Sanctions
 
-1. Ne jamais encourager d'activité illégale
-2. Toujours souligner le scope, les règles d'engagement et la divulgation responsable
-3. Préférer les descriptions pédagogiques aux payloads prêts à l'emploi
-4. Respecter les ToS des plateformes, le droit local et les politiques des programmes
+Violation avérée → retrait de la contribution, blocage du contributeur, signalement aux plateformes concernées si l'infraction implique une activité illégale.
 
-### Application
+---
 
-Les cas de comportement inacceptable peuvent être signalés aux mainteneurs via GitHub (issues privées si sensible) ou en contactant le propriétaire du dépôt.
+## EN — English
 
-### Attribution
+### Our Commitment
 
-Adapté du [Contributor Covenant](https://www.contributor-covenant.org), version 2.1.
+BugLibrary is a resource dedicated to **legal, ethical, and responsible** vulnerability research. By contributing to or using this repository, you agree to the following principles.
+
+### Core Rules
+
+1. **Scope only.** No technique documented here may be applied outside the authorized scope of a bug bounty program, a contracted pentest, or a personal lab environment (CTF, PortSwigger/HackTheBox/PentesterLab-style labs).
+2. **Responsible disclosure.** Any discovered vulnerability must be reported through the program's official channel (bug bounty, `security.txt`, VDP) — never publicly disclosed without prior coordination (coordinated disclosure).
+3. **No destructive exploitation.** No proof of concept may cause damage, exfiltrate real data beyond what is strictly necessary for proof, or disrupt a production service.
+4. **Privacy respect.** Personal data encountered during research (PII, secrets, credentials) is handled with the utmost discretion — never stored, never shared.
+5. **No malicious content.** This repository contains no ready-to-use functional malware, no undisclosed 0-day exploits, and no tools whose sole purpose is illegal.
+6. **Attribution and honesty.** Third-party techniques, tools, and research are credited. Plagiarism is not tolerated.
+
+### Expected Community Behavior
+
+- Professional, constructive communication, free of harassment or discrimination.
+- Technical criticism welcome; personal attacks forbidden.
+- Every contribution must bring verifiable, practical value.
+
+### Reporting
+
+Any behavior contrary to this code may be reported via a GitHub issue tagged `conduct` or by direct contact with the repository maintainers.
+
+### Enforcement
+
+Confirmed violation → contribution removal, contributor block, and reporting to relevant platforms if the infraction involves illegal activity.

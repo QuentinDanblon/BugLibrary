@@ -1,39 +1,33 @@
 # OS
 .DS_Store
 Thumbs.db
-desktop.ini
 
-# Editors / IDEs
-.idea/
+# Editors
 .vscode/
+.idea/
 *.swp
-*.swo
-*~
 
-# Secrets — never commit
-.env
-.env.*
-*.pem
-*.key
-id_rsa*
-credentials.json
-secrets/
-.token
-
-# Local recon / target data (keep private)
-recon-output/
-targets/
-scope.local.*
-*.har
-burp-project*.json
-
-# Python / Node local
+# Python
 __pycache__/
 *.pyc
 .venv/
 venv/
-node_modules/
 
-# Logs
+# Node
+node_modules/
+npm-debug.log*
+
+# Secrets & scope-sensitive data — NEVER commit real targets/creds
+*.env
+.env.*
+secrets/
+private-scope-notes/
+*.pem
+*.key
+burp-project/*.burp
+*.har
+
+# Recon output (raw scan data should stay local, not versioned)
+tools/output/
+scripts/output/
 *.log
-.coverage
