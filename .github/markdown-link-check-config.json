@@ -1,0 +1,20 @@
+{
+  "ignorePatterns": [
+    { "pattern": "^http://169.254.169.254" },
+    { "pattern": "^http://metadata.google.internal" },
+    { "pattern": "^http://100.100.100.200" }
+  ],
+  "httpHeaders": [
+    {
+      "urls": ["https://github.com/", "https://hackerone.com/"],
+      "headers": {
+        "Accept": "text/html",
+        "User-Agent": "Mozilla/5.0 (compatible; markdown-link-check)"
+      }
+    }
+  ],
+  "timeout": "20s",
+  "retryOn429": true,
+  "retryCount": 3,
+  "fallbackHttpStatus": [403, 429]
+}
