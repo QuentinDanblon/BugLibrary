@@ -1,0 +1,31 @@
+id: exposed-git-config
+
+info:
+  name: Exposed .git/config
+  author: BugLibrary
+  severity: medium
+  description: >
+    Detects an exposed .git directory (config file readable), which allows
+    reconstructing the full source tree via tools like git-dumper/GitTools and
+    frequently leaks hardcoded secrets, internal endpoints, and business logic.
+  reference:
+    - https://github.com/internetwache/GitTools
+  tags: exposure,git,misconfig
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/.git/config"
+      - "{{BaseURL}}/.git/HEAD"
+
+    matchers-condition: and
+    matchers:
+      - type: word
+        words:
+          - "[core]"
+          - "ref: refs/heads"
+        condition: or
+
+      - type: status
+        status:
+          - 200

@@ -1,0 +1,36 @@
+id: exposed-swagger-openapi-docs
+
+info:
+  name: Exposed Swagger/OpenAPI Documentation
+  author: BugLibrary
+  severity: info
+  description: >
+    Detects publicly reachable Swagger/OpenAPI JSON/YAML documentation, which often
+    reveals internal/undocumented endpoints, parameter names, and auth schemes
+    useful for accelerating BOLA/mass-assignment hypothesis formulation.
+  reference:
+    - https://owasp.org/www-project-api-security/
+  tags: api,exposure,swagger,openapi
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/swagger.json"
+      - "{{BaseURL}}/swagger/v1/swagger.json"
+      - "{{BaseURL}}/openapi.json"
+      - "{{BaseURL}}/api-docs"
+      - "{{BaseURL}}/v2/api-docs"
+      - "{{BaseURL}}/api/swagger.json"
+
+    matchers-condition: and
+    matchers:
+      - type: word
+        words:
+          - "\"swagger\""
+          - "\"openapi\""
+          - "\"paths\""
+        condition: or
+
+      - type: status
+        status:
+          - 200

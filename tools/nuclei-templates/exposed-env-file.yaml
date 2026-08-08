@@ -1,0 +1,41 @@
+id: exposed-env-file
+
+info:
+  name: Exposed .env File
+  author: BugLibrary
+  severity: high
+  description: >
+    Detects publicly accessible .env files that commonly leak database credentials,
+    API keys, and secret tokens for Node.js/Laravel/Django-style applications.
+  reference:
+    - https://owasp.org/www-community/attacks/Full_Path_Disclosure
+  tags: exposure,config,env,misconfig
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/.env"
+      - "{{BaseURL}}/.env.local"
+      - "{{BaseURL}}/.env.production"
+      - "{{BaseURL}}/.env.backup"
+      - "{{BaseURL}}/api/.env"
+
+    matchers-condition: and
+    matchers:
+      - type: word
+        words:
+          - "DB_PASSWORD"
+          - "APP_KEY"
+          - "SECRET_KEY"
+          - "AWS_SECRET_ACCESS_KEY"
+        condition: or
+
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        part: header
+        words:
+          - "text/html"
+        negative: true

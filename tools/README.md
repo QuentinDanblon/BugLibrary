@@ -7,10 +7,37 @@ Stack d'outils recommandée pour BugLibrary — voir le détail complet et le r�
 ```
 tools/
 ├── README.md              → ce fichier, index de la stack
-├── wordlists/              → wordlists custom recommandées (non versionnées si volumineuses — voir .gitignore)
+├── wordlists/              → wordlists custom BugLibrary (curées, petites, versionnées ici)
 ├── nuclei-templates/       → templates nuclei custom écrits par la communauté BugLibrary
 └── burp-configs/           → configurations Burp Suite exportées (scope presets, extensions recommandées)
 ```
+
+## Nuclei templates custom fournis
+
+| Template | Sévérité | Détecte |
+|---|---|---|
+| [`nuclei-templates/exposed-env-file.yaml`](nuclei-templates/exposed-env-file.yaml) | High | Fichiers `.env` exposés publiquement (credentials DB, clés API) |
+| [`nuclei-templates/graphql-introspection-enabled.yaml`](nuclei-templates/graphql-introspection-enabled.yaml) | Info | Introspection GraphQL activée (fuite de schéma complet) |
+| [`nuclei-templates/exposed-swagger-openapi-docs.yaml`](nuclei-templates/exposed-swagger-openapi-docs.yaml) | Info | Documentation Swagger/OpenAPI exposée publiquement |
+| [`nuclei-templates/exposed-git-config.yaml`](nuclei-templates/exposed-git-config.yaml) | Medium | Dossier `.git` exposé (reconstruction du code source possible) |
+| [`nuclei-templates/cloud-metadata-ssrf-probe.yaml`](nuclei-templates/cloud-metadata-ssrf-probe.yaml) | Info (référence manuelle) | Payloads de référence pour confirmer un SSRF vers les endpoints metadata cloud (AWS/GCP/Azure/Alibaba) — usage manuel, pas un scan automatisé |
+
+Lancer les templates automatisés :
+
+```bash
+nuclei -u https://target.com -t tools/nuclei-templates/exposed-env-file.yaml
+nuclei -u https://target.com -t tools/nuclei-templates/  # tous les templates du dossier (sauf le probe SSRF, à usage manuel)
+```
+
+## Wordlists custom fournies
+
+| Wordlist | Usage |
+|---|---|
+| [`wordlists/common-api-endpoints.txt`](wordlists/common-api-endpoints.txt) | Content discovery ciblé API (`ffuf -w wordlists/common-api-endpoints.txt -u https://target.com/FUZZ`) |
+| [`wordlists/common-idor-mass-assignment-params.txt`](wordlists/common-idor-mass-assignment-params.txt) | Fuzzing de paramètres pour IDOR/mass assignment (`arjun`, `ffuf` mode paramètre) |
+| [`wordlists/common-subdomain-prefixes.txt`](wordlists/common-subdomain-prefixes.txt) | Bruteforce/permutation de sous-domaines complémentaire à `subfinder`/`amass` |
+
+Ces listes sont volontairement courtes et curées (signal dense) — pour un fuzzing exhaustif, les combiner avec SecLists/Assetnote ci-dessous plutôt que les remplacer.
 
 ## Installation rapide de la stack recon de base
 
