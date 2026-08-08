@@ -1,114 +1,55 @@
-# Recon Template / Template de reconnaissance
+# Template de Notes de Reconnaissance / Recon Notes Template
 
-**Program:**  
-**Date:**  
-**Hunter / Agent run ID:**  
-**Policy version / URL:**  
+> Une instance par cible/programme. Structure pensée pour être réutilisée à chaque nouvelle session sans redécouvrir ce qui est déjà connu. Voir méthodologie : [`docs/02-Reconnaissance`](../docs/02-Reconnaissance/README.md).
 
 ---
 
-## Scope pack
+## Cible
 
-### In scope
+- **Programme :** [nom]
+- **Plateforme :** [HackerOne / Bugcrowd / Intigriti / Programme privé / VDP]
+- **Date de dernière mise à jour de ces notes :** [YYYY-MM-DD]
+- **Scope résumé :** [domaines/apps in-scope]
+- **Exclusions clés :** [self-XSS, clickjacking sans impact, etc.]
 
-| Asset | Type | Notes |
-|-------|------|-------|
-| | domain / app / IP | |
+## Inventaire des assets
 
-### Out of scope / exclusions
+| Asset | Type | Statut | Techno détectée | Priorité (1-10) | Notes |
+|---|---|---|---|---|---|
+| `app.target.com` | Web app | Actif | React + Node/Express | 8 | Panel utilisateur, upload avatar |
+| `api.target.com` | API REST | Actif | Express, Swagger exposé | 9 | `/v1/` et `/v2/` actifs simultanément |
+| `staging.target.com` | Web app | Actif | Identique à prod | 9 | Moins de couverture probable |
 
-| Asset | Reason |
-|-------|--------|
-| | |
-
-### Rate & automation rules
+## Sous-domaines découverts (log incrémental)
 
 ```
-max_rps:
-automation_allowed:
-special_notes:
+[Date] nouveau sous-domaine trouvé : xxx.target.com — source : subfinder
+[Date] nouveau sous-domaine trouvé : yyy.target.com — source : ctfr monitoring
 ```
 
----
+## Endpoints identifiés
 
-## Identity matrix
+| Endpoint | Méthode | Auth requise | Description | Testé ? |
+|---|---|---|---|---|
+| `/api/v2/user/{id}` | GET | Oui | Profil utilisateur | ☐ |
+| `/api/v2/orders/{id}/invoice` | GET | Oui | Facture de commande | ☐ |
 
-| Account label | Role | Org/Tenant | MFA | Notes |
-|---------------|------|------------|-----|-------|
-| Attacker-A | | | | |
-| Victim-B | | | | |
-| LowPriv-C | | | | |
+## Secrets / fuites identifiées (JS, GitHub, sourcemaps)
 
----
+*Toujours vérifier la validité avant tout usage — ne jamais utiliser une clé/token réel trouvé sans autorisation explicite du programme couvrant ce cas.*
 
-## Asset inventory (ASM)
+| Type | Localisation | Valide ? | Action prise |
+|---|---|---|---|
+| API key Stripe test | `bundle.min.js` ligne X | Non vérifié | À signaler si sensible, ne pas utiliser |
 
-| ID | Host/App | Auth | Stack notes | Last seen | Status (in/unclear/out) |
-|----|----------|------|-------------|-----------|-------------------------|
-| | | | | | |
+## Hypothèses en cours (voir 01-Mindset-and-Methodology)
 
----
+| Hypothèse | Statut | Résultat |
+|---|---|---|
+| L'endpoint `/orders/{id}/invoice` est probablement vulnérable à un IDOR (ID séquentiel observé) | En test | — |
 
-## Trust boundaries
+## Historique de sessions
 
-| From | To | Risk theme |
-|------|-----|------------|
-| user | user | horizontal |
-| member | admin | vertical |
-| tenant1 | tenant2 | isolation |
-
----
-
-## Entry points (sample)
-
-| Method | Path / Operation | Auth | Object IDs | Notes |
-|--------|------------------|------|------------|-------|
-| | | | | |
-
----
-
-## Tech fingerprint
-
-- Auth schemes:  
-- API styles:  
-- WAF/CDN:  
-- Mobile apps:  
-- Interesting headers:  
-
----
-
-## Deltas since last session
-
-| Change | Source | Hypothesis IDs |
-|--------|--------|----------------|
-| | | |
-
----
-
-## Hypothesis backlog (top)
-
-| ID | Claim | EV 1–5 | Status |
-|----|-------|--------|--------|
-| H- | | | open |
-
----
-
-## Noise / do-not-repeat
-
--  
-
----
-
-## OPSEC notes
-
-- IP/profile used:  
-- Rate incidents:  
-- Blocks:  
-
----
-
-## Sign-off
-
-- [ ] No unclear assets tested  
-- [ ] Budgets respected  
-- [ ] Secrets not stored in plain git  
+| Date | Durée | Focus | Résultat |
+|---|---|---|---|
+| [YYYY-MM-DD] | 2h | Recon passive complète | Liste initiale d'assets établie |

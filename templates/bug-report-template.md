@@ -1,140 +1,74 @@
-# Bug Report Template / Template de rapport
+# Template de Rapport de Vulnérabilité / Vulnerability Report Template
 
-> Maximize triage speed and payout clarity. Redact secrets. Authorized programs only.  
-> Maximiser la vitesse de triage et la clarté d’impact. Rédiger les secrets.
-
----
-
-## Title / Titre
-
-```
-[TYPE] <short object> — <impact hint>
-```
-
-**Example:** `[BOLA] Invoice PDF API — any authenticated user can read other users’ invoices`
+> Copier ce template pour chaque nouveau rapport. Supprimer les instructions en italique avant soumission. Voir la méthodologie complète : [`docs/10-Reporting-and-Communication`](../docs/10-Reporting-and-Communication/README.md).
 
 ---
 
-## Summary / Résumé
+## Titre
 
-<!-- 3–5 lines: who can do what to whom -->
+*[Classe de vulnérabilité] + [localisation exacte] + [impact principal]*
 
-- **Actor:**  
-- **Action:**  
-- **Victim asset:**  
-- **Result:**  
+Exemple : `IDOR sur /api/v2/orders/{id}/invoice permettant l'accès aux factures de tout utilisateur (fuite de PII et données financières à l'échelle de la plateforme)`
 
----
+## Résumé exécutif
 
-## Severity rationale / Justification de sévérité
+*2-3 phrases maximum. Quoi, où, impact principal — lisible seul sans le reste du rapport.*
 
-| Factor | Assessment |
-|--------|------------|
-| Confidentiality | |
-| Integrity | |
-| Availability | |
-| Privileges required | |
-| User interaction | |
-| Scope (single user / tenant / system) | |
-| Program scale mapping | |
+## Sévérité
 
----
+**Sévérité :** [Critical / High / Medium / Low]
+**Score CVSS 3.1 :** [X.X] — [Vecteur complet, ex: AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N]
+**Justification :** *Pourquoi ce score exactement — expliciter chaque composante du vecteur.*
 
-## Affected assets / Assets affectés
+## Composants affectés
 
-| Asset | Environment | In-scope ref |
-|-------|-------------|--------------|
-| | Production / … | Policy line / URL |
+- **URL/Endpoint :** `https://...`
+- **Paramètre(s) affecté(s) :** `...`
+- **Méthode HTTP :** `GET/POST/PUT/DELETE`
+- **Comptes de test utilisés :** `test-a@example.com` (rôle X), `test-b@example.com` (rôle Y)
 
----
+## Étapes de reproduction
 
-## Preconditions / Prérequis
+*Numérotées, exécutables telles qu'écrites, sans étape implicite. Inclure les requêtes/réponses HTTP brutes en bloc de code.*
 
-- Accounts: `Attacker` (role …), `Victim` (role …)  
-- Feature flags / plan tier:  
-- Other:  
-
----
-
-## Steps to reproduce / Étapes de reproduction
-
-1.  
-2.  
-3.  
-4.  
-
-**Expected:**  
-**Actual:**  
-
----
-
-## Proof of Concept / Preuve de concept
-
-### HTTP (sanitized)
+1. ...
+2. ...
+3. ...
 
 ```http
-GET /api/example HTTP/1.1
-Host: in-scope.example
-Authorization: Bearer <REDACTED>
-```
+GET /api/v2/orders/12345/invoice HTTP/1.1
+Host: target.com
+Authorization: Bearer <token-utilisateur-A>
 
-### Response (sanitized excerpt)
-
-```http
+[Réponse]
 HTTP/1.1 200 OK
 ...
 ```
 
-### Screenshots
+## Preuve visuelle
 
-<!-- attach; blur tokens -->
+*Capture(s) d'écran ou vidéo jointe démontrant l'exploitation de bout en bout. Une vidéo est recommandée pour toute vulnérabilité multi-étapes ou multi-comptes.*
 
----
+## Impact business
 
-## Impact / Impact
+*Traduire le technique en risque réel pour l'entreprise : nombre d'utilisateurs concernés, sensibilité des données exposées, scénario d'attaque réaliste à l'échelle, coût estimé si applicable.*
 
-Business-oriented paragraph: data types, cross-user/tenant, financial, regulatory, abuse scenario at reasonable scale.
+## Scénario d'attaque réaliste
 
----
+*Comment un attaquant réel exploiterait ce bug en conditions réelles — vecteur de distribution, échelle atteignable, prérequis d'accès.*
 
-## Remediation / Remédiation
+## Chaînage / Vulnérabilités liées
 
-1. Enforce server-side authorization on object/function  
-2. Add regression tests for dual-account access  
-3. Audit sibling endpoints (export, preview, jobs)  
-4. …  
+*Si ce bug a été découvert/amplifié en combinaison avec un autre signal, le documenter ici avec référence croisée.*
 
----
+## Remédiation suggérée
 
-## Related endpoints / Endpoints liés
+*Recommandation technique concrète, pas générique — spécifique au mécanisme observé.*
 
-| Method | Path | Notes |
-|--------|------|-------|
-| | | |
+## Références
+
+*Liens vers la documentation technique pertinente (OWASP, PortSwigger, CVE si applicable).*
 
 ---
 
-## Timeline / Chronologie (optional)
-
-| Date | Event |
-|------|-------|
-| | Discovered |
-| | Reported |
-
----
-
-## Notes for triage
-
-- Data minimized: yes/no  
-- Duplicate search performed: yes/no  
-- Contact preference:  
-
----
-
-### Reporter checklist before submit
-
-- [ ] Scope confirmed  
-- [ ] Tokens redacted  
-- [ ] Dual-account clear for authZ  
-- [ ] Impact not inflated  
-- [ ] Steps cold-repro OK  
+*Checklist avant soumission — voir [`docs/12-Checklists-and-CheatSheets/README.md`](../docs/12-Checklists-and-CheatSheets/README.md#checklist-avant-de-soumettre-un-rapport-universelle)*
