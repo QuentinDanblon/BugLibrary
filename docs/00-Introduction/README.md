@@ -42,6 +42,21 @@ Un rapport mal écrit fait baisser la sévérité perçue même pour un bug crit
 - Lecture de code source (au moins JS côté client, idéalement backend courant : Node, Python, PHP, Java, Go).
 - Notions réseau (DNS, TLS, reverse proxy, CDN).
 
+## S'entraîner légalement avant de chasser en programme réel
+
+Ne jamais tester une technique inconnue directement sur une cible de bug bounty réelle — s'entraîner d'abord sur un environnement dont l'usage offensif est explicitement autorisé.
+
+| Plateforme | Idéal pour |
+|---|---|
+| [PortSwigger Web Security Academy](https://portswigger.net/web-security) | Référence absolue, gratuite — labs pratiques par classe de vulnérabilité (XSS, SSRF, auth, business logic, request smuggling), directement alignés sur [`03-Web-Application-Hunting`](../03-Web-Application-Hunting/README.md) |
+| [PentesterLab](https://pentesterlab.com/) | Labs payants approfondis, bons pour la désérialisation et les CVE réelles reconstituées |
+| [HackTheBox](https://www.hackthebox.com/) | Généraliste réseau/binaire, utile pour compléter [`07-Binary-and-Reverse-Engineering`](../07-Binary-and-Reverse-Engineering/README.md) |
+| [TryHackMe](https://tryhackme.com/) | Bon point d'entrée progressif avant PortSwigger/HTB si les fondamentaux réseau/HTTP ne sont pas encore solides |
+| [OWASP Juice Shop](https://owasp.org/www-project-juice-shop/) | Application volontairement vulnérable auto-hébergeable — utile pour tester ses propres scripts (`scripts/`) sans dépendre d'un service tiers |
+| [Google/Facebook/GitLab public bug bounty VDP en mode "practice"](https://github.com/disclose/diodb) | Base de données de programmes VDP publics — vérifier systématiquement le scope écrit avant tout test, voir [`11-Legal-Ethics-and-OPSEC`](../11-Legal-Ethics-and-OPSEC/README.md) |
+
+> 💡 Un bon rythme d'entraînement : reproduire chaque nouvelle technique lue dans ce dépôt sur le lab correspondant de PortSwigger **avant** de la tester en programme réel — ça élimine les faux positifs dus à une mauvaise compréhension du mécanisme plutôt qu'à une vraie absence de protection côté cible.
+
 ## Ce que cette bibliothèque n'est PAS
 
 - Pas un cours OWASP Top 10 pour débutants.
