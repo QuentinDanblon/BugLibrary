@@ -2,9 +2,52 @@
 
 ## Objectif de cette section
 
-Études de cas généralisées/anonymisées illustrant la méthodologie de chaînage et de hunting piloté par hypothèses. Ces cas sont des **compositions pédagogiques inspirées de patterns réels et publics** (write-ups connus de la communauté, disclosures publiques agrégées) — pas des rapports d'un programme spécifique nommé, sauf lorsque l'information est déjà en disclosure publique confirmée.
+Deux catégories de cas dans ce document :
 
-> 💡 Pour des études de cas réelles avec noms de programmes, consulte la Hacktivity publique de HackerOne et les write-ups référencés dans [`14-Resources-and-Continuous-Learning`](../14-Resources-and-Continuous-Learning/README.md).
+1. **Cas réels documentés** — rapports effectivement divulgués publiquement sur HackerOne, cités avec leur lien et leurs faits exacts (pas de détail inventé au-delà de ce que le rapport public confirme).
+2. **Cas pédagogiques généralisés** — compositions inspirées de patterns récurrents observés dans la communauté, non attribuées à un programme nommé, utiles pour illustrer une méthodologie de chaînage même sans rapport source unique.
+
+## Cas réels documentés (disclosures publiques HackerOne)
+
+### Cas réel 1 — IDOR sur l'édition d'email menant à une prise de compte (Atavist / Automattic)
+
+**Source :** [HackerOne Report #950881](https://hackerone.com/reports/950881) — divulgué publiquement, programme Automattic.
+
+**Observation initiale :** Le chercheur (`bugra`) modifie son adresse email depuis la page de compte `https://magazine.atavist.com/cms/reader/account` et intercepte la requête via un proxy. La requête contient un paramètre `id` correspondant à l'ID utilisateur.
+
+**Hypothèse formulée :** Si l'`id` est accepté côté client sans revérification serveur de la correspondance avec le compte authentifié, et que les IDs utilisateurs sont séquentiels, l'attaque est généralisable à l'ensemble de la base utilisateurs.
+
+**Test :** Remplacement de l'`id` par celui d'un second compte de test, envoi de la requête modifiée.
+
+**Résultat confirmé :** L'email du second compte est modifié avec succès — aucune vérification serveur de propriété de la ressource. Les IDs étant séquentiels, l'attaque est triviale à automatiser sur l'ensemble des comptes.
+
+**Impact final :** Chaînage direct avec le flux "mot de passe oublié" — changer l'email d'un compte cible puis déclencher `/forgot` sur la nouvelle adresse email contrôlée par l'attaquant permet une **prise de compte sans aucune interaction de la victime**. Rapport classé critique, bounty accordé (montant non communiqué publiquement par le programme).
+
+**Leçon méthodologique :** Une IDOR sur un champ en apparence anodin (email de compte) devient critique dès qu'elle se chaîne avec un flux d'authentification existant (reset password) — toujours se demander "qu'est-ce que cette donnée modifiable permet de déclencher ensuite ?", pas seulement "cette donnée est-elle sensible en elle-même ?".
+
+---
+
+### Cas réel 2 — SSRF critique via génération de rapports d'analytics (programme HackerOne lui-même)
+
+**Source :** [HackerOne Report #2262382](https://hackerone.com/reports/2262382) — divulgué publiquement par HackerOne sur son propre programme, chercheur `mega7`.
+
+**Observation initiale :** Une fonctionnalité de génération de rapports convertit du contenu HTML en PDF côté serveur (`ApplicationController.render_to_string` alimentant un moteur de rendu PDF). Un message d'erreur "Missing template for element: `#{element[:template]}`" reflétait la valeur du paramètre `template` sans sanitization.
+
+**Hypothèse formulée (déduite du diff de correctif publié par HackerOne) :** La valeur non sanitizée du champ `template`, réinjectée dans le pipeline de rendu HTML→PDF, était probablement exploitable pour forcer le moteur de rendu à effectuer des requêtes serveur vers des ressources arbitraires — signature classique de SSRF via un moteur de templating/rendu.
+
+**Test :** Le chercheur a démontré la capacité à faire émettre des requêtes serveur vers des services AWS internes depuis l'application, jusqu'à confirmer l'accès aux endpoints de credentials temporaires — puis s'est arrêté à ce stade sans extraire ou utiliser les credentials.
+
+**Résultat confirmé :** Accès démontré aux services AWS internes de l'infrastructure applicative, avec possibilité d'obtenir des credentials IAM temporaires.
+
+**Impact final :** HackerOne a noté le rapport **CVSS 3.0 = 10.0 (Critical)** — vecteur `AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:N/CR:H/IR:H/AR:H` — et a explicitement remercié le chercheur pour s'être arrêté au bon moment ("stopping at the right point in testing, demonstrating a responsible and ethical approach").
+
+**Leçon méthodologique :** Deux points structurants — (1) tout message d'erreur qui reflète un paramètre d'entrée dans un contexte de rendu serveur (templating, PDF, image) est un candidat direct à l'hypothèse SSRF/injection, même sans réponse HTTP visible immédiate ; (2) démontrer l'accès aux credentials sans les extraire/utiliser est la pratique attendue pour un rapport noté "responsable et éthique" — la preuve d'accès suffit, l'exploitation active dégrade la relation avec le programme sans augmenter la sévérité du rapport.
+
+---
+
+## Cas pédagogiques généralisés
+
+> 💡 Pour trouver d'autres cas réels à ajouter ici, consulte la Hacktivity publique de HackerOne (filtrable par sévérité/bounty) et les write-ups référencés dans [`14-Resources-and-Continuous-Learning`](../14-Resources-and-Continuous-Learning/README.md).
 
 ## Cas 1 — De l'IDOR mineure à la prise de compte de masse
 
